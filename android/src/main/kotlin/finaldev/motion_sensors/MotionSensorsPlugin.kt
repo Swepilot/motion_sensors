@@ -13,7 +13,6 @@ import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
-import io.flutter.plugin.common.PluginRegistry.Registrar
 
 // translate from https://github.com/flutter/plugins/tree/master/packages/sensors
 /** MotionSensorsPlugin */
@@ -46,14 +45,6 @@ public class MotionSensorsPlugin : FlutterPlugin, MethodChannel.MethodCallHandle
   private var absoluteOrientationStreamHandler: RotationVectorStreamHandler? = null
   private var screenOrientationStreamHandler: ScreenOrientationStreamHandler? = null
 
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      val plugin = MotionSensorsPlugin()
-      plugin.setupEventChannels(registrar.context(), registrar.messenger())
-    }
-  }
-
   override fun onAttachedToEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     val context = binding.applicationContext
     setupEventChannels(context, binding.binaryMessenger)
@@ -71,7 +62,6 @@ public class MotionSensorsPlugin : FlutterPlugin, MethodChannel.MethodCallHandle
     }
   }
   
-
   private fun setupEventChannels(context: Context, messenger: BinaryMessenger) {
     sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
